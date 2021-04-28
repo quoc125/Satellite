@@ -9,6 +9,8 @@ public class CamControl : MonoBehaviour
 
     private float yaw = 0.0f;
     private float pitch = 0.0f;
+    [SerializeField]
+    protected float moveSpeed = 2;
 
     void Update()
     {
@@ -16,5 +18,10 @@ public class CamControl : MonoBehaviour
         pitch -= speedV * Input.GetAxis("Mouse Y");
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x + pitch, transform.eulerAngles.y + yaw, transform.eulerAngles.z);
+        float xInput = Input.GetAxis("Horizontal");
+        float zInput = Input.GetAxis("Vertical");
+        Vector3 dir = transform.forward * zInput + transform.right * xInput;
+
+        transform.position += dir * moveSpeed * Time.deltaTime;
     }
 }
