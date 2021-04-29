@@ -231,6 +231,11 @@ public class SatelliteManager : MonoBehaviour
         {
             GameObject tempSatellite = Instantiate(satellitePrefab, baseCoordinateSystem);
             BaseSatelliteModel model = tempSatellite.GetComponent<BaseSatelliteModel>();
+            if (category.ToLower().Contains("active"))
+            {
+                model.ActiveSatelliteModel = true;
+            }
+
             model.Initialize(tle, category);
             model.ReferenceTime = simTime;
             satelliteModels.Add(tle.Name, model);
@@ -239,6 +244,9 @@ public class SatelliteManager : MonoBehaviour
             {
                 categories.Add(category, new List<BaseSatelliteModel>());
             }
+
+
+
             categories[category].Add(satelliteModels[tleInformation[0]]);
             return model;
         }

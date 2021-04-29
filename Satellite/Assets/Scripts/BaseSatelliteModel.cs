@@ -57,7 +57,11 @@ public class BaseSatelliteModel : MonoBehaviour
         gameObject.name = info.Name;
         if (!ActiveSatelliteModel)
         {
-            Material material = gameObject.GetComponent<MeshRenderer>().material = inactive;
+           gameObject.GetComponent<MeshRenderer>().material = inactive;
+        }
+        else
+        {
+            Debug.Log("Active");
         }
     }
 }
