@@ -182,7 +182,7 @@ public class CanvasController : MonoBehaviour
                 orginalPosition = Camera.main.transform.position;
                 Camera.main.transform.position = sat.transform.position;
                 currentDropbox = subSubCategories;
-
+                inputSystem?.SwitchCurrentActionMap("Look Around");
             }
         }
     }

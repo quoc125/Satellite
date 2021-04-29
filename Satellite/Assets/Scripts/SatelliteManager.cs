@@ -231,7 +231,6 @@ public class SatelliteManager : MonoBehaviour
         {
             GameObject tempSatellite = Instantiate(satellitePrefab, baseCoordinateSystem);
             BaseSatelliteModel model = tempSatellite.GetComponent<BaseSatelliteModel>();
-            model.ActiveSatelliteModel = true;
             model.Initialize(tle, category);
             model.ReferenceTime = simTime;
             satelliteModels.Add(tle.Name, model);
