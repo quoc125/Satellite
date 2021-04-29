@@ -153,7 +153,7 @@ public class CanvasController : MonoBehaviour
 
                 subSubCategories.options = options;
 
-                subCategories.onValueChanged.AddListener(delegate { ProcessSubSubCategoriesSelections(categories); });
+                subSubCategories.onValueChanged.AddListener(delegate { ProcessSubSubCategoriesSelections(categories); });
 
                 subSubCategories.gameObject.SetActive(true);
                 subSubLayer.setOutline(true);
