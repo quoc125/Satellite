@@ -98,7 +98,9 @@ public class CanvasController : MonoBehaviour
         if (dropdown.value != 0)
         {
             subLayer = (Layer)rootLayer.getObject(dropdown.options[dropdown.value].text);
-
+            rootLayer.setOutline(false);
+            subCategories.gameObject.SetActive(false);
+            subSubCategories.gameObject.SetActive(false);
             List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
             List<string> keys = subLayer.getKeys();
             options.Add(new TMP_Dropdown.OptionData(""));
@@ -132,6 +134,7 @@ public class CanvasController : MonoBehaviour
             {
                 BaseSatelliteModel sat = (BaseSatelliteModel)subLayer.getObject(dropdown.options[dropdown.value].text);
                 subLayer.setOutline(false);
+                subSubCategories.gameObject.SetActive(false);
                 orginalPosition = Camera.main.transform.position;
                 Camera.main.transform.position = sat.transform.position;
                 currentDropbox = subCategories;
@@ -172,14 +175,13 @@ public class CanvasController : MonoBehaviour
     {
         if (dropdown.value != 0)
         {
-            if (subLayer.storeSatellite)
+            if (subSubLayer.storeSatellite)
             {
                 BaseSatelliteModel sat = (BaseSatelliteModel)subSubLayer.getObject(dropdown.options[dropdown.value].text);
                 subSubLayer.setOutline(false);
                 orginalPosition = Camera.main.transform.position;
                 Camera.main.transform.position = sat.transform.position;
                 currentDropbox = subSubCategories;
-                inputSystem?.SwitchCurrentActionMap("Look Around");
 
             }
         }
