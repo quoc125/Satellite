@@ -144,7 +144,7 @@ public class CanvasController : MonoBehaviour
             else
             {
                 subSubLayer = (Layer)subLayer.getObject(dropdown.options[dropdown.value].text);
-
+                subLayer.setOutline(false);
                 List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
                 List<string> keys = subSubLayer.getKeys();
                 options.Add(new TMP_Dropdown.OptionData(""));
