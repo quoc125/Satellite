@@ -1,0 +1,10 @@
+weather.txt
+noaa.txt
+goes.txt
+resource.txt
+sarsat.txt
+dmc.txt
+tdrss.txt
+argos.txt
+planet.txt
+spire.txt

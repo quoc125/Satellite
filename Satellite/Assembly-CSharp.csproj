@@ -56,6 +56,8 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FollowLabel.cs" />
+    <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Scripts\BaseSatelliteModel.cs" />
     <Compile Include="Assets\Scripts\OrbitTools\Core\Vector.cs" />
     <Compile Include="Assets\Scripts\OrbitTools\Core\Eci.cs" />
@@ -76,38 +78,65 @@
     <Compile Include="Assets\Scripts\OrbitTools\Orbit\NoradSGP4.cs" />
     <Compile Include="Assets\Scripts\OrbitTools\Orbit\NoradBase.cs" />
     <Compile Include="Assets\Scripts\OrbitTools\Core\Tle.cs" />
-    <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
-    <Compile Include="Assets\Planet Control\BaseButton.cs" />
     <Compile Include="Assets\Planet Control\Layer.cs" />
-    <Compile Include="Assets\FollowLabel.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+     <None Include="Assets\StreamingAssets\intelsat.txt" />
+     <None Include="Assets\StreamingAssets\amateur.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\StreamingAssets\active.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\StreamingAssets\science.txt" />
+     <None Include="Assets\StreamingAssets\x-comm.txt" />
+     <None Include="Assets\StreamingAssets\tdrss.txt" />
+     <None Include="Assets\StreamingAssets\noaa.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <None Include="Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
+     <None Include="Assets\StreamingAssets\starlink.txt" />
+     <None Include="Assets\StreamingAssets\dmc.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\StreamingAssets\planet.txt" />
+     <None Include="Assets\StreamingAssets\iridium.txt" />
+     <None Include="Assets\StreamingAssets\resource.txt" />
+     <None Include="Assets\StreamingAssets\category_communications.txt" />
+     <None Include="Assets\StreamingAssets\oneweb.txt" />
+     <None Include="Assets\StreamingAssets\swarm.txt" />
+     <None Include="Assets\StreamingAssets\galileo.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+     <None Include="Assets\StreamingAssets\iridium-NEXT.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+     <None Include="Assets\StreamingAssets\ses.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\StreamingAssets\categories.txt" />
      <None Include="Assets\QuickOutline\Readme.txt" />
+     <None Include="Assets\StreamingAssets\gps-ops.txt" />
+     <None Include="Assets\StreamingAssets\glo-ops.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+     <None Include="Assets\StreamingAssets\gnss.txt" />
+     <None Include="Assets\StreamingAssets\beidou.txt" />
+     <None Include="Assets\StreamingAssets\category_navigation.txt" />
+     <None Include="Assets\StreamingAssets\globalstar.txt" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <None Include="Assets\StreamingAssets\weather.txt" />
+     <None Include="Assets\StreamingAssets\goes.txt" />
+     <None Include="Assets\StreamingAssets\category_weather.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+     <None Include="Assets\StreamingAssets\orbcomm.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\StreamingAssets\sarsat.txt" />
+     <None Include="Assets\StreamingAssets\spire.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+     <None Include="Assets\StreamingAssets\argos.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.5f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

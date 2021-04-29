@@ -1,1 +1,4 @@
 active.txt
+category_weather.txt
+category_navigation.txt
+category_communications.txt

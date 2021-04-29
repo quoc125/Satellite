@@ -1,0 +1,12 @@
+gpz-plus.php
+intelsat.txt
+ses.txt
+iridium.txt
+iridium-NEXT.txt
+starlink.txt
+oneweb.txt
+orbcomm.txt
+globalstar.txt
+swarm.txt
+amateur.txt
+satnogs.txt

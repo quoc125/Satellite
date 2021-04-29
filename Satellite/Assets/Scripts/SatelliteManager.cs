@@ -118,6 +118,19 @@ public class SatelliteManager : MonoBehaviour
         }
 
         InitAllModel();
+
+        Layer temp = new Layer(true);
+
+        foreach (BaseSatelliteModel satelliteModel in satelliteModels.Values)
+        {
+            if (!satelliteModel.ActiveSatelliteModel)
+            {
+                temp.addObject(satelliteModel.name, satelliteModel);
+            }                   
+        }
+
+        rootLayer.addObject("inactive", temp);
+
         canvasController.Initialization(rootLayer, this);
     }
 
@@ -163,10 +176,11 @@ public class SatelliteManager : MonoBehaviour
             if(category.ToLower().Contains("category"))
             {
                 Layer catLayer = new Layer(false);
-                currentLayer.addObject(category.Split(',')[0], catLayer);
+                currentLayer.addObject(category.Split('_')[1], catLayer);
                 while (!sr.EndOfStream)
                 {
-                    ProcessDataFiles(catLayer, sr.ReadLine());
+                    string temp = Application.streamingAssetsPath + Path.DirectorySeparatorChar + sr.ReadLine();
+                    ProcessDataFiles(catLayer, temp);
                 }
             }
             else

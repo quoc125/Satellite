@@ -113,7 +113,7 @@ public class CanvasController : MonoBehaviour
             subCategories.onValueChanged.AddListener(delegate { ProcessSubCategoriesSelections(subCategories); });
 
             subCategories.gameObject.SetActive(true);
-            rootLayer.setOutline(true);
+            subLayer.setOutline(true);
 
         }
         else
@@ -151,11 +151,13 @@ public class CanvasController : MonoBehaviour
                     options.Add(new TMP_Dropdown.OptionData(name));
                 }
 
-                categories.options = options;
+                subSubCategories.options = options;
 
-                categories.onValueChanged.AddListener(delegate { ProcessSubCategoriesSelections(categories); });
+                subCategories.onValueChanged.AddListener(delegate { ProcessSubSubCategoriesSelections(categories); });
 
-                subCategories.gameObject.SetActive(true);
+                subSubCategories.gameObject.SetActive(true);
+                subSubLayer.setOutline(true);
+
             }
         }
         else
@@ -163,6 +165,23 @@ public class CanvasController : MonoBehaviour
             subCategories.value = 0;
             subCategories.gameObject.SetActive(false);
             subLayer.setOutline(false);
+        }
+    }
+
+    public void ProcessSubSubCategoriesSelections(TMP_Dropdown dropdown)
+    {
+        if (dropdown.value != 0)
+        {
+            if (subLayer.storeSatellite)
+            {
+                BaseSatelliteModel sat = (BaseSatelliteModel)subSubLayer.getObject(dropdown.options[dropdown.value].text);
+                subSubLayer.setOutline(false);
+                orginalPosition = Camera.main.transform.position;
+                Camera.main.transform.position = sat.transform.position;
+                currentDropbox = subSubCategories;
+                inputSystem?.SwitchCurrentActionMap("Look Around");
+
+            }
         }
     }
 
