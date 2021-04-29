@@ -19,7 +19,7 @@ public class SatelliteManager : MonoBehaviour
     protected DateTime simTime;
 
     [SerializeField]
-    protected float timeScaling = 100;
+    public float timeScaling = 1;
 
     [SerializeField]
     protected Transform baseCoordinateSystem;
@@ -28,6 +28,7 @@ public class SatelliteManager : MonoBehaviour
     [SerializeField]
     protected GameObject satellitePrefab;
     protected Dictionary<string, BaseSatelliteModel> satelliteModels;
+    protected Dictionary<string, List<BaseSatelliteModel>> categories;
 
     [SerializeField]
     protected string categoriesPath;
@@ -36,6 +37,8 @@ public class SatelliteManager : MonoBehaviour
     [SerializeField]
     protected int DivisionValue = 1;
     protected int splitValue = 0;
+
+    public Layer rootLayer;
 
     #endregion
 
@@ -64,6 +67,9 @@ public class SatelliteManager : MonoBehaviour
         satelliteModels = new Dictionary<string, BaseSatelliteModel>();
         earth = FindObjectOfType<EarthModel>();
         simTime = DateTime.UtcNow;
+        categories = new Dictionary<string, List<BaseSatelliteModel>>();
+        rootLayer = new Layer(false);
+
         if (DivisionValue < 1)
         {
             DivisionValue = 1;
@@ -76,8 +82,9 @@ public class SatelliteManager : MonoBehaviour
             str.Add("SGP4 Test");
             str.Add("1 25544U 98067A   21091.70445102  .00001678  00000-0  38648-4 0  9991");
             str.Add("2 25544  51.6471   1.0083 0003014 167.9185 235.2837 15.48972976276747");
-            ProcessTLE(str.ToArray(), "Test");
-
+            Layer testLayer = new Layer(true);
+            testLayer.addObject( "SGP4 Test", ProcessTLE(str.ToArray(), "Test"));
+            rootLayer.addObject("test", testLayer);
         }
         else
         {
@@ -87,7 +94,7 @@ public class SatelliteManager : MonoBehaviour
                 while (!sr.EndOfStream)
                 {
                     string path = Application.streamingAssetsPath + Path.DirectorySeparatorChar + sr.ReadLine();
-                    ProcessDataFiles(path);
+                    ProcessDataFiles(rootLayer, path);
                 }
                 sr.Close();
             }
@@ -111,6 +118,7 @@ public class SatelliteManager : MonoBehaviour
         }
 
         InitAllModel();
+        canvasController.Initialization(rootLayer, this);
     }
 
     public void FixedUpdate()
@@ -145,25 +153,39 @@ public class SatelliteManager : MonoBehaviour
 
 
 
-    public void ProcessDataFiles(string filePath)
+    public void ProcessDataFiles(Layer currentLayer, string filePath)
     {
         try
         {
             StreamReader sr = new StreamReader(filePath);
             string[] path = filePath.Split(Path.DirectorySeparatorChar);
-            string category = path[path.Length - 1];
-            while (!sr.EndOfStream)
+            string category = path[path.Length - 1].Split('.')[0];
+            if(category.ToLower().Contains("category"))
             {
-                List<string> str = new List<string>();
-
-                //Test Case
-                str.Add(sr.ReadLine());
-                str.Add(sr.ReadLine());
-                str.Add(sr.ReadLine());
-
-                ProcessTLE(str.ToArray(), category);
+                Layer catLayer = new Layer(false);
+                currentLayer.addObject(category.Split(',')[0], catLayer);
+                while (!sr.EndOfStream)
+                {
+                    ProcessDataFiles(catLayer, sr.ReadLine());
+                }
             }
-            sr.Close();
+            else
+            {
+                Layer satLayer = new Layer(true);
+                currentLayer.addObject(category, satLayer);
+                while (!sr.EndOfStream)
+                {
+                    List<string> str = new List<string>();
+
+                    //Test Case
+                    str.Add(sr.ReadLine());
+                    str.Add(sr.ReadLine());
+                    str.Add(sr.ReadLine());
+                    BaseSatelliteModel sat =  ProcessTLE(str.ToArray(), category);
+                    satLayer.addObject(sat.name, sat);
+                }
+                sr.Close();
+            }
         }
         catch (Exception e)
         {
@@ -172,20 +194,40 @@ public class SatelliteManager : MonoBehaviour
     }
 
 
-    public void ProcessTLE(string[] tleInformation, string category)
+    public BaseSatelliteModel ProcessTLE(string[] tleInformation, string category)
     {
         Tle tle = new Tle(tleInformation[0], tleInformation[1], tleInformation[2]);
         if (satelliteModels.ContainsKey(tleInformation[0]))
         {
+            if (category.ToLower().Contains("active"))
+            {
+                satelliteModels[tleInformation[0]].ActiveSatelliteModel = true;
+            }
+
+            if (!categories.ContainsKey(category))
+            {
+                categories.Add(category, new List<BaseSatelliteModel>());
+            }
+            categories[category].Add(satelliteModels[tleInformation[0]]);
+
             satelliteModels[tleInformation[0]].Categories.Add(category);
+            return satelliteModels[tleInformation[0]];
         }
         else
         {
             GameObject tempSatellite = Instantiate(satellitePrefab, baseCoordinateSystem);
             BaseSatelliteModel model = tempSatellite.GetComponent<BaseSatelliteModel>();
+            model.ActiveSatelliteModel = true;
             model.Initialize(tle, category);
             model.ReferenceTime = simTime;
             satelliteModels.Add(tle.Name, model);
+
+            if (!categories.ContainsKey(category))
+            {
+                categories.Add(category, new List<BaseSatelliteModel>());
+            }
+            categories[category].Add(satelliteModels[tleInformation[0]]);
+            return model;
         }
     }
 }

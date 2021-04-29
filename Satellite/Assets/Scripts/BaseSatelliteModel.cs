@@ -6,6 +6,8 @@ using Zeptomoby.OrbitTools;
 
 public class BaseSatelliteModel : MonoBehaviour
 {
+    public bool ActiveSatelliteModel = false;
+
     public DateTime ReferenceTime
     {
         get
@@ -43,6 +45,7 @@ public class BaseSatelliteModel : MonoBehaviour
     protected DateTime startTime;
     protected List<string> categories;
     public Satellite satelliteInfo;
+    public Material inactive;
 
     public void Initialize(Tle info, string category)
     {
@@ -52,5 +55,9 @@ public class BaseSatelliteModel : MonoBehaviour
         startTime = info.EpochJulian.ToTime();
         transform.localEulerAngles = Vector3.zero;
         gameObject.name = info.Name;
+        if (!ActiveSatelliteModel)
+        {
+            Material material = gameObject.GetComponent<MeshRenderer>().material = inactive;
+        }
     }
 }
